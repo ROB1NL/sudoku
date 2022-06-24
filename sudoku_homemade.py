@@ -1,38 +1,35 @@
-import random
-from random import shuffle
 import tkinter
+from random import *
 from tkinter import filedialog
-import numpy
 
-
+nombrevie = 3
 
 
 def get_path():
-    top=tkinter.Tk()
+    top = tkinter.Tk()
     top.withdraw()
     chemin = filedialog.askopenfilename()
     top.destroy()
     return chemin
 
 
-def read() :
-    i=0
-    j=0
-    with open(str(get_path()),'r') as doc :
-        for line in doc :
-            for letter in line.split() :
-                if (ord(letter)>= 48 and ord(letter)<=57 ):
-                    if (i<=8 and j<=8) :
-                        grid[j][i]=ord(letter)-48
-                        i+=1
-                        if i== 9 :
-                            i=0
-                            j+=1
-                else :
-                    print("charactere non valide : ",letter)
+def read():
+    i = 0
+    j = 0
+    with open(str(get_path()), 'r') as doc:
+        for line in doc:
+            for letter in line.split():
+                if (ord(letter) >= 48 and ord(letter) <= 57):
+                    if (i <= 8 and j <= 8):
+                        grid[j][i] = ord(letter) - 48
+                        i += 1
+                        if i == 9:
+                            i = 0
+                            j += 1
+                else:
+                    print("charactere non valide : ", letter)
     print(grid)
     doc.close()
-
 
 
 def solve(grid):
@@ -55,20 +52,22 @@ def solve(grid):
 
     return False
 
-def isValid2(y,x,n,grid):
+
+def isValid2(y, x, n, grid):
     for i in range(9):
         if grid[y][i] == n:
             return False
     for i in range(9):
         if grid[i][x] == n:
             return False
-    x0 = ( x // 3)*3 # renvoi les coordonnee du coin haut gauche du bloc de 3
-    y0 = ( y // 3)*3 #
+    x0 = (x // 3) * 3  # renvoi les coordonnee du coin haut gauche du bloc de 3
+    y0 = (y // 3) * 3  #
     for i in range(3):
         for j in range(3):
-            if grid[y0+i][x0+j] == n:
+            if grid[y0 + i][x0 + j] == n:
                 return False
     return True
+
 
 def isValid(board, num, pos):
     raw = pos[0]
@@ -100,126 +99,119 @@ def emptyCell(board):
                 return (row, column)
     return None
 
-import pygame
 
-from Interface import *
+from Interface1 import *
 
+grid0 = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-grid0 = [[0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0]]
+grid1 = [[7, 6, 1, 5, 8, 3, 4, 9, 2],
+         [9, 4, 3, 2, 7, 6, 8, 5, 1],
+         [8, 5, 2, 4, 1, 9, 3, 6, 7],
+         [1, 7, 4, 3, 2, 5, 9, 8, 6],
+         [6, 8, 9, 1, 4, 7, 2, 3, 5],
+         [2, 3, 5, 9, 6, 8, 1, 7, 4],
+         [3, 2, 6, 7, 9, 4, 5, 1, 8],
+         [5, 1, 8, 6, 3, 2, 7, 4, 9],
+         [4, 9, 7, 8, 5, 1, 6, 2, 3]]
 
-grid1 = [[7,6,1,5,8,3,4,9,2],
-        [9,4,3,2,7,6,8,5,1],
-        [8,5,2,4,1,9,3,6,7],
-        [1,7,4,3,2,5,9,8,6],
-        [6,8,9,1,4,7,2,3,5],
-        [2,3,5,9,6,8,1,7,4],
-        [3,2,6,7,9,4,5,1,8],
-        [5,1,8,6,3,2,7,4,9],
-        [4,9,7,8,5,1,6,2,3]]
+grid2 = [[8, 1, 3, 9, 2, 5, 7, 4, 6],
+         [9, 5, 6, 8, 4, 7, 3, 1, 2],
+         [4, 7, 2, 3, 6, 1, 8, 9, 5],
+         [6, 2, 4, 7, 1, 9, 5, 3, 8],
+         [7, 9, 5, 6, 3, 8, 4, 2, 1],
+         [3, 8, 1, 4, 5, 2, 9, 6, 7],
+         [2, 3, 8, 1, 7, 4, 6, 5, 9],
+         [5, 4, 9, 2, 8, 6, 1, 7, 3],
+         [1, 6, 7, 5, 9, 3, 2, 8, 4]]
 
-grid2 = [[8,1,3,9,2,5,7,4,6],
-         [9,5,6,8,4,7,3,1,2],
-         [4,7,2,3,6,1,8,9,5],
-         [6,2,4,7,1,9,5,3,8],
-         [7,9,5,6,3,8,4,2,1],
-         [3,8,1,4,5,2,9,6,7],
-         [2,3,8,1,7,4,6,5,9],
-         [5,4,9,2,8,6,1,7,3],
-         [1,6,7,5,9,3,2,8,4]]
+grid3 = [[1, 2, 3, 7, 8, 9, 4, 5, 6],
+         [4, 5, 6, 1, 2, 3, 7, 8, 9],
+         [7, 8, 9, 4, 5, 6, 1, 2, 3],
+         [2, 3, 1, 8, 9, 7, 5, 6, 4],
+         [5, 6, 4, 2, 3, 1, 8, 9, 7],
+         [8, 9, 7, 5, 6, 4, 2, 3, 1],
+         [3, 1, 2, 9, 7, 8, 6, 4, 5],
+         [6, 4, 5, 3, 1, 2, 9, 7, 8],
+         [9, 7, 8, 6, 4, 5, 3, 1, 2]]
 
-grid3 =  [[1,2,3,7,8,9,4,5,6],
-         [4,5,6,1,2,3,7,8,9],
-         [7,8,9,4,5,6,1,2,3],
-         [2,3,1,8,9,7,5,6,4],
-         [5,6,4,2,3,1,8,9,7],
-         [8,9,7,5,6,4,2,3,1],
-         [3,1,2,9,7,8,6,4,5],
-         [6,4,5,3,1,2,9,7,8],
-         [9,7,8,6,4,5,3,1,2]]
+grid4 = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
+         [6, 7, 2, 1, 9, 5, 3, 4, 8],
+         [1, 9, 8, 3, 4, 2, 5, 6, 7],
+         [8, 5, 9, 7, 6, 1, 4, 2, 3],
+         [4, 2, 6, 8, 5, 3, 7, 9, 1],
+         [7, 1, 3, 9, 2, 4, 8, 5, 6],
+         [9, 6, 1, 5, 3, 7, 2, 8, 4],
+         [2, 8, 7, 4, 1, 9, 6, 5, 3],
+         [3, 4, 5, 2, 8, 6, 1, 7, 9]]
 
-grid4 =  [[5,3,4,6,7,8,9,1,2],
-         [6,7,2,1,9,5,3,4,8],
-         [1,9,8,3,4,2,5,6,7],
-         [8,5,9,7,6,1,4,2,3],
-         [4,2,6,8,5,3,7,9,1],
-         [7,1,3,9,2,4,8,5,6],
-         [9,6,1,5,3,7,2,8,4],
-         [2,8,7,4,1,9,6,5,3],
-         [3,4,5,2,8,6,1,7,9]]
+grid5 = [[1, 6, 2, 8, 5, 7, 4, 9, 3],
+         [5, 3, 4, 1, 2, 9, 6, 7, 8],
+         [7, 8, 9, 6, 4, 3, 5, 2, 1],
+         [4, 7, 5, 3, 1, 2, 9, 8, 6],
+         [9, 1, 3, 5, 8, 6, 7, 4, 2],
+         [6, 2, 8, 7, 9, 4, 1, 3, 5],
+         [3, 5, 6, 4, 7, 8, 2, 1, 9],
+         [2, 4, 1, 9, 3, 5, 8, 6, 7],
+         [8, 9, 7, 2, 6, 1, 3, 5, 4]]
 
-grid5 =  [[1,6,2,8,5,7,4,9,3],
-         [5,3,4,1,2,9,6,7,8],
-         [7,8,9,6,4,3,5,2,1],
-         [4,7,5,3,1,2,9,8,6],
-         [9,1,3,5,8,6,7,4,2],
-         [6,2,8,7,9,4,1,3,5],
-         [3,5,6,4,7,8,2,1,9],
-         [2,4,1,9,3,5,8,6,7],
-         [8,9,7,2,6,1,3,5,4]]
+grid6 = [[4, 3, 6, 5, 7, 2, 9, 8, 1],
+         [9, 1, 7, 4, 8, 3, 5, 2, 6],
+         [5, 2, 8, 9, 1, 6, 3, 4, 7],
+         [1, 8, 9, 6, 3, 4, 2, 7, 5],
+         [7, 6, 5, 1, 2, 8, 4, 3, 9],
+         [2, 4, 3, 7, 5, 9, 1, 6, 8],
+         [8, 9, 4, 2, 6, 1, 7, 5, 3],
+         [3, 7, 1, 8, 4, 5, 6, 9, 2],
+         [6, 5, 2, 3, 9, 7, 8, 1, 4]]
 
-grid6 =  [[4,3,6,5,7,2,9,8,1],
-         [9,1,7,4,8,3,5,2,6],
-         [5,2,8,9,1,6,3,4,7],
-         [1,8,9,6,3,4,2,7,5],
-         [7,6,5,1,2,8,4,3,9],
-         [2,4,3,7,5,9,1,6,8],
-         [8,9,4,2,6,1,7,5,3],
-         [3,7,1,8,4,5,6,9,2],
-         [6,5,2,3,9,7,8,1,4]]
+grid7 = [[4, 7, 2, 9, 1, 3, 6, 8, 5],
+         [3, 8, 1, 7, 5, 6, 2, 9, 4],
+         [6, 5, 9, 2, 8, 4, 3, 1, 7],
+         [8, 3, 5, 1, 6, 7, 9, 4, 2],
+         [7, 2, 6, 3, 4, 9, 1, 5, 8],
+         [1, 9, 4, 5, 2, 8, 7, 3, 6],
+         [2, 4, 8, 6, 9, 1, 5, 7, 3],
+         [9, 6, 3, 4, 7, 5, 8, 2, 1],
+         [5, 1, 7, 8, 3, 2, 4, 6, 9]]
 
+grid8 = [[8, 7, 3, 9, 4, 2, 6, 5, 1],
+         [6, 9, 4, 1, 5, 8, 3, 7, 2],
+         [5, 2, 1, 6, 7, 3, 4, 8, 9],
+         [2, 1, 7, 5, 8, 4, 9, 3, 6],
+         [3, 4, 5, 2, 9, 6, 8, 1, 7],
+         [9, 6, 8, 7, 3, 1, 2, 4, 5],
+         [1, 3, 6, 8, 2, 7, 5, 9, 4],
+         [4, 5, 2, 3, 1, 9, 7, 6, 8],
+         [7, 8, 9, 4, 6, 5, 1, 2, 3]]
 
-grid7 =  [[4,7,2,9,1,3,6,8,5],
-         [3,8,1,7,5,6,2,9,4],
-         [6,5,9,2,8,4,3,1,7],
-         [8,3,5,1,6,7,9,4,2],
-         [7,2,6,3,4,9,1,5,8],
-         [1,9,4,5,2,8,7,3,6],
-         [2,4,8,6,9,1,5,7,3],
-         [9,6,3,4,7,5,8,2,1],
-         [5,1,7,8,3,2,4,6,9]]
+grid9 = [[8, 1, 9, 5, 7, 2, 4, 6, 3],
+         [6, 3, 5, 1, 4, 9, 2, 7, 8],
+         [7, 4, 2, 6, 3, 8, 1, 5, 9],
+         [1, 7, 4, 9, 8, 5, 3, 2, 6],
+         [2, 6, 3, 7, 1, 4, 9, 8, 5],
+         [5, 9, 8, 2, 3, 6, 7, 4, 1],
+         [3, 8, 7, 4, 9, 6, 5, 1, 2],
+         [4, 5, 6, 3, 2, 1, 8, 9, 7],
+         [9, 2, 1, 8, 5, 7, 6, 3, 4]]
 
+grid10 = [[5, 1, 7, 9, 6, 4, 2, 8, 3],
+          [9, 6, 2, 8, 3, 7, 1, 5, 4],
+          [8, 3, 4, 1, 5, 2, 7, 6, 9],
+          [1, 4, 6, 5, 8, 3, 9, 7, 2],
+          [3, 5, 8, 2, 7, 9, 6, 4, 1],
+          [7, 2, 9, 6, 4, 1, 8, 3, 5],
+          [2, 7, 1, 3, 9, 5, 4, 6, 8],
+          [4, 8, 3, 7, 1, 6, 5, 2, 9],
+          [6, 9, 5, 4, 2, 8, 3, 1, 7]]
 
-grid8 =  [[8,7,3,9,4,2,6,5,1],
-         [6,9,4,1,5,8,3,7,2],
-         [5,2,1,6,7,3,4,8,9],
-         [2,1,7,5,8,4,9,3,6],
-         [3,4,5,2,9,6,8,1,7],
-         [9,6,8,7,3,1,2,4,5],
-         [1,3,6,8,2,7,5,9,4],
-         [4,5,2,3,1,9,7,6,8],
-         [7,8,9,4,6,5,1,2,3]]
-
-
-grid9 =  [[8,1,9,5,7,2,4,6,3],
-         [6,3,5,1,4,9,2,7,8],
-         [7,4,2,6,3,8,1,5,9],
-         [1,7,4,9,8,5,3,2,6],
-         [2,6,3,7,1,4,9,8,5],
-         [5,9,8,2,3,6,7,4,1],
-         [3,8,7,4,9,6,5,1,2],
-         [4,5,6,3,2,1,8,9,7],
-         [9,2,1,8,5,7,6,3,4]]
-
-grid10 = [[5,1,7,9,6,4,2,8,3],
-         [9,6,2,8,3,7,1,5,4],
-         [8,3,4,1,5,2,7,6,9],
-         [1,4,6,5,8,3,9,7,2],
-         [3,5,8,2,7,9,6,4,1],
-         [7,2,9,6,4,1,8,3,5],
-         [2,7,1,3,9,5,4,6,8],
-         [4,8,3,7,1,6,5,2,9],
-         [6,9,5,4,2,8,3,1,7]]
-
-
-import numpy as np
 pygame.init()
 
 if __name__ == '__main__':
@@ -232,7 +224,7 @@ SUDOKU = False
 MENU_DIFFICULTE = False
 MENU_MODE = False
 MENU_IMPORTER = False
-#definition des couleurs de surbrillance pour afficher la selection
+# definition des couleurs de surbrillance pour afficher la selection
 color_jouer, color_quitter = rouge_clair, blanc
 color_facile, color_moyen, color_difficile, color_diabolique = rouge_clair, blanc, blanc, blanc
 color_importer, color_generer = rouge_clair, blanc
@@ -242,69 +234,68 @@ def solve2(grid):
     for y in range(9):
         for x in range(9):
             if grid[y][x] == 0:
-                for n in range(1,10):
-                    if isValid(y,x,n,grid):
+                for n in range(1, 10):
+                    if isValid(y, x, n, grid):
                         grid[y][x] = n
                         yield from solve(grid)
                         grid[y][x] = 0
                 return
     yield (grid)
 
+
 def create_grid():
-    grid = [[0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0]]
-    nb = randint(0,9)
+    grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    nb = randint(0, 9)
     temp = Liste_grille[nb]
     for i in range(0, 9):
         for j in range(0, 9):
             grid[i][j] = temp[i][j]
-    list_nb_utilise =[]
-    if selected=="facile": #suppr 44 chiffre
-        for k in range(0,45):
-            case = randint(0,81)
-            while case in list_nb_utilise :
-                case = randint(0,81)
-            ligne = case//9 -1
-            colonne = case%9 -1
-            grid[colonne][ligne]=0
+    list_nb_utilise = []
+    if selected == "facile":  # suppr 44 chiffre
+        for k in range(0, 45):
+            case = randint(0, 81)
+            while case in list_nb_utilise:
+                case = randint(0, 81)
+            ligne = case // 9 - 1
+            colonne = case % 9 - 1
+            grid[colonne][ligne] = 0
             list_nb_utilise.append(case)
-    if selected == "moyen" : #suppr 47 chiffre
-        for k in range(0,48):
-            case = randint(0,81)
-            while case in list_nb_utilise :
-                case = randint(0,81)
-            ligne = case//9 -1
-            colonne = case%9 -1
-            grid[colonne][ligne]=0
+    if selected == "moyen":  # suppr 47 chiffre
+        for k in range(0, 48):
+            case = randint(0, 81)
+            while case in list_nb_utilise:
+                case = randint(0, 81)
+            ligne = case // 9 - 1
+            colonne = case % 9 - 1
+            grid[colonne][ligne] = 0
             list_nb_utilise.append(case)
-    if selected == "difficile" :#suppr 52 chiffre
-        for k in range(0,52):
-            case = randint(0,81)
-            while case in list_nb_utilise :
-                case = randint(0,81)
-            ligne = case//9 -1
-            colonne = case%9 -1
-            grid[colonne][ligne]=0
+    if selected == "difficile":  # suppr 52 chiffre
+        for k in range(0, 52):
+            case = randint(0, 81)
+            while case in list_nb_utilise:
+                case = randint(0, 81)
+            ligne = case // 9 - 1
+            colonne = case % 9 - 1
+            grid[colonne][ligne] = 0
             list_nb_utilise.append(case)
-    if selected == "diabolique" :#suppr 55 chiffre
-        for k in range(0,55):
-            case = randint(0,81)
-            while case in list_nb_utilise :
-                case = randint(0,81)
-            ligne = case//9 -1
-            colonne = case%9 -1
-            grid[colonne][ligne]=0
+    if selected == "diabolique":  # suppr 55 chiffre
+        for k in range(0, 55):
+            case = randint(0, 81)
+            while case in list_nb_utilise:
+                case = randint(0, 81)
+            ligne = case // 9 - 1
+            colonne = case % 9 - 1
+            grid[colonne][ligne] = 0
             list_nb_utilise.append(case)
     return grid
-
-
 
 
 if __name__ == '__main__':
@@ -320,34 +311,36 @@ if __name__ == '__main__':
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2, 350*0.66, 300*0.66, 100*0.66], 0).collidepoint(event.pos):
+                                               [taille_ecran_menu[1] // 2, 350 * 0.66, 300 * 0.66, 100 * 0.66],
+                                               0).collidepoint(event.pos):
                             pygame.quit()
                             quit()
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2, 200*0.66, 300*0.66, 100*0.66], 0).collidepoint(event.pos):
+                                               [taille_ecran_menu[1] // 2, 200 * 0.66, 300 * 0.66, 100 * 0.66],
+                                               0).collidepoint(event.pos):
                             MENU = False
                             MENU_MODE = True
                             MENU_DIFFICULTE = False
                             SUDOKU = False
                             MENU_IMPORTER = False
                             selected = "importer"
-                #On définit le "scroll" pour naviguer dans le menu
+                # On définit le "scroll" pour naviguer dans le menu
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 4:
                         if selected == "Jouer":
                             selected = "Quitter"
-                        elif selected == "Quitter":
+                        if selected == "Quitter":
                             selected = "Jouer"
                     if event.button == 5:
                         if selected == "Jouer":
                             selected = "Quitter"
-                        elif selected == "Quitter":
+                        if selected == "Quitter":
                             selected = "Jouer"
-                #On définit les touches de clavier pour naviguer dans le menu
+                # On définit les touches de clavier pour naviguer dans le menu
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP or event.key == pygame.K_z:
                         selected = "Jouer"
-                    elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                         selected = "Quitter"
                     if event.key == pygame.K_RETURN:
                         if selected == "Quitter":
@@ -355,21 +348,22 @@ if __name__ == '__main__':
                             quit()
                     if event.key == pygame.K_RETURN and selected == "Quitter":
                         pygame.quit()
-                    elif event.key == pygame.K_RETURN and selected == "Jouer":
+                    if event.key == pygame.K_RETURN and selected == "Jouer":
                         MENU = False
                         MENU_MODE = True
                         MENU_DIFFICULTE = False
                         SUDOKU = False
                         MENU_IMPORTER = False
                         selected = "importer"
-#Gestion de l'affichage des couleurs pour un effet "surbrillance" sur la selection
+            # Gestion de l'affichage des couleurs pour un effet "surbrillance" sur la selection
             if selected == "Jouer":
                 color_jouer, color_quitter = rouge_clair, blanc
-            elif selected == "Quitter":
+            if selected == "Quitter":
                 color_jouer, color_quitter = blanc, rouge_clair
 
         if MENU_MODE:
-            menu_mode = Menu_mode(taille_ecran_menu, police_ecriture_menu, police_ecriture_sudoku, background_color,color_importer, color_generer)
+            menu_mode = Menu_mode(taille_ecran_menu, police_ecriture_menu, police_ecriture_sudoku, background_color,
+                                  color_importer, color_generer)
             pygame.display.flip()  # Actualise lecran
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -378,8 +372,8 @@ if __name__ == '__main__':
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         pos = pygame.mouse.get_pos()
-                        #Bouton retour
-                        if pos[0] > taille_ecran_menu[0] - 100*0.66 and pos[1] > taille_ecran_menu[1] - 30*0.66:
+                        # Bouton retour
+                        if pos[0] > taille_ecran_menu[0] - 100 * 0.66 and pos[1] > taille_ecran_menu[1] - 30 * 0.66:
                             selected = "Jouer"
                             MENU = True
                             MENU_MODE = False
@@ -390,17 +384,17 @@ if __name__ == '__main__':
                     if event.button == 4:
                         if selected == "importer":
                             selected = "générer"
-                        elif selected == "générer":
+                        if selected == "générer":
                             selected = "importer"
-                    elif event.button == 5:
+                    if event.button == 5:
                         if selected == "importer":
                             selected = "générer"
-                        elif selected == "générer":
+                        if selected == "générer":
                             selected = "importer"
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP or event.key == pygame.K_z:
                         selected = "importer"
-                    elif event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                    if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                         selected = "générer"
                     if event.key == pygame.K_RETURN:
                         if selected == "générer":
@@ -410,7 +404,7 @@ if __name__ == '__main__':
                             SUDOKU = False
                             MENU_IMPORTER = False
                             selected = "facile"
-                        elif selected == "importer":
+                        if selected == "importer":
                             MENU_DIFFICULTE = False
                             MENU_MODE = False
                             MENU = False
@@ -419,16 +413,11 @@ if __name__ == '__main__':
                             nombrevie = 3
                             selected = ""
 
-
-
-
-
-
                 # on click sur le bouton importer
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2 - 100, 200*0.66, 300*0.66, 100*0.66],
+                                               [taille_ecran_menu[1] // 2 - 100, 200 * 0.66, 300 * 0.66, 100 * 0.66],
                                                0).collidepoint(event.pos):
                             MENU_MODE = False
                             MENU_DIFFICULTE = False
@@ -436,13 +425,11 @@ if __name__ == '__main__':
                             MENU = False
                             SUDOKU = False
 
-
-
                 # on click sur le bouton générer
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1: #1 correspond au clic gauche
+                    if event.button == 1:  # 1 correspond au clic gauche
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2 - 100, 350*0.66, 300*0.66, 100*0.66],
+                                               [taille_ecran_menu[1] // 2 - 100, 350 * 0.66, 300 * 0.66, 100 * 0.66],
                                                0).collidepoint(event.pos):
                             MENU_MODE = False
                             MENU_DIFFICULTE = True
@@ -450,15 +437,15 @@ if __name__ == '__main__':
                             SUDOKU = False
                             MENU_IMPORTER = False
                             selected = "facile"
-#gestion des couleurs pour l'affichage de la selection par "surbrillance"
+            # gestion des couleurs pour l'affichage de la selection par "surbrillance"
             if selected == "générer":
                 color_importer, color_generer = blanc, rouge_clair
-            elif selected == "importer":
+            if selected == "importer":
                 color_importer, color_generer = rouge_clair, blanc
 
-
         if MENU_DIFFICULTE:
-            menu_difficulte = Menu_difficulte(taille_ecran_menu_difficulte, police_ecriture_menu, police_ecriture_sudoku,
+            menu_difficulte = Menu_difficulte(taille_ecran_menu_difficulte, police_ecriture_menu,
+                                              police_ecriture_sudoku,
                                               background_color, color_facile, color_moyen, color_difficile,
                                               color_diabolique)
             pygame.display.flip()  # Actualise lecran
@@ -468,9 +455,10 @@ if __name__ == '__main__':
                     quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        #definition des differents boutons selon ou on clique avec sa souris
+                        # definition des differents boutons selon ou on clique avec sa souris
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2, 200*0.66, 300*0.66, 100*0.66], 0).collidepoint(event.pos):
+                                               [taille_ecran_menu[1] // 2, 200 * 0.66, 300 * 0.66, 100 * 0.66],
+                                               0).collidepoint(event.pos):
                             MENU_DIFFICULTE = False
                             SUDOKU = True
                             MENU = False
@@ -481,7 +469,8 @@ if __name__ == '__main__':
                             print(selected)
 
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2, 350*0.66, 300*0.66, 100*0.66], 0).collidepoint(event.pos):
+                                               [taille_ecran_menu[1] // 2, 350 * 0.66, 300 * 0.66, 100 * 0.66],
+                                               0).collidepoint(event.pos):
                             MENU_DIFFICULTE = False
                             SUDOKU = True
                             MENU = False
@@ -492,7 +481,8 @@ if __name__ == '__main__':
                             print(selected)
 
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2, 500*0.66, 300*0.66, 100*0.66], 0).collidepoint(event.pos):
+                                               [taille_ecran_menu[1] // 2, 500 * 0.66, 300 * 0.66, 100 * 0.66],
+                                               0).collidepoint(event.pos):
                             MENU_DIFFICULTE = False
                             SUDOKU = True
                             MENU = False
@@ -503,7 +493,8 @@ if __name__ == '__main__':
                             print(selected)
 
                         if pygame.draw.ellipse(pygame.display.set_mode(taille_ecran_menu), violet,
-                                               [taille_ecran_menu[1] // 2, 650*0.66, 300*0.66, 100*0.66], 0).collidepoint(event.pos):
+                                               [taille_ecran_menu[1] // 2, 650 * 0.66, 300 * 0.66, 100 * 0.66],
+                                               0).collidepoint(event.pos):
                             MENU_DIFFICULTE = False
                             SUDOKU = True
                             MENU = False
@@ -513,11 +504,11 @@ if __name__ == '__main__':
                             grid = create_grid()
                             print(selected)
 
-                #bouton retour pour retourner au menu "mode"
+                # bouton retour pour retourner au menu "mode"
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         pos = pygame.mouse.get_pos()
-                        if pos[0] > taille_ecran_sudoku[0] - 100*0.66 and pos[1] > taille_ecran_sudoku[1] - 30*0.66:
+                        if pos[0] > taille_ecran_sudoku[0] - 100 * 0.66 and pos[1] > taille_ecran_sudoku[1] - 30 * 0.66:
                             selected = "Jouer"
                             MENU_DIFFICULTE = False
                             MENU_MODE = True
@@ -525,43 +516,42 @@ if __name__ == '__main__':
                             SUDOKU = False
                             MENU_IMPORTER = False
 
-
                 # on scroll down and up
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 5:
                         if selected == "facile":
                             selected = "moyen"
-                        elif selected == "moyen":
+                        if selected == "moyen":
                             selected = "difficile"
-                        elif selected == "difficile":
+                        if selected == "difficile":
                             selected = "diabolique"
-                        elif selected == "diabolique":
+                        if selected == "diabolique":
                             selected = "facile"
                     if event.button == 4:
                         if selected == "facile":
                             selected = "diabolique"
-                        elif selected == "moyen":
+                        if selected == "moyen":
                             selected = "facile"
-                        elif selected == "difficile":
+                        if selected == "difficile":
                             selected = "moyen"
-                        elif selected == "diabolique":
+                        if selected == "diabolique":
                             selected = "difficile"
 
-                #On definit le deplacement dans le menu avec z et s ou "bas" et "haut"
+                # On definit le deplacement dans le menu avec z et s ou "bas" et "haut"
                 if event.type == pygame.KEYDOWN:
                     if (event.key == pygame.K_DOWN or event.key == pygame.K_s) and selected == "facile":
                         selected = "moyen"
-                    elif (event.key == pygame.K_DOWN or event.key == pygame.K_s) and selected == "moyen":
+                    if (event.key == pygame.K_DOWN or event.key == pygame.K_s) and selected == "moyen":
                         selected = "difficile"
-                    elif (event.key == pygame.K_DOWN or event.key == pygame.K_s) and selected == "difficile":
+                    if (event.key == pygame.K_DOWN or event.key == pygame.K_s) and selected == "difficile":
                         selected = "diabolique"
-                    elif (event.key == pygame.K_UP or event.key == pygame.K_z) and selected == "diabolique":
+                    if (event.key == pygame.K_UP or event.key == pygame.K_z) and selected == "diabolique":
                         selected = "difficile"
-                    elif (event.key == pygame.K_UP or event.key == pygame.K_z) and selected == "difficile":
+                    if (event.key == pygame.K_UP or event.key == pygame.K_z) and selected == "difficile":
                         selected = "moyen"
-                    elif (event.key == pygame.K_UP or event.key == pygame.K_z) and selected == "moyen":
+                    if (event.key == pygame.K_UP or event.key == pygame.K_z) and selected == "moyen":
                         selected = "facile"
-                    #si on presse la touche entree, on entre dans le menu "Sudoku"
+                    # si on presse la touche entree, on entre dans le menu "Sudoku"
                     if event.key == pygame.K_RETURN:
                         grid = create_grid()
                         MENU_DIFFICULTE = False
@@ -569,14 +559,14 @@ if __name__ == '__main__':
                         MENU_MODE = False
                         MENU = False
                         MENU_IMPORTER = False
-            #definition des couleurs de surbrillance pour afficher la selection.
+            # definition des couleurs de surbrillance pour afficher la selection.
             if selected == "facile":
                 color_facile, color_moyen, color_difficile, color_diabolique = rouge_clair, blanc, blanc, blanc
-            elif selected == "moyen":
+            if selected == "moyen":
                 color_facile, color_moyen, color_difficile, color_diabolique = blanc, rouge_clair, blanc, blanc
-            elif selected == "difficile":
+            if selected == "difficile":
                 color_facile, color_moyen, color_difficile, color_diabolique = blanc, blanc, rouge_clair, blanc
-            elif selected == "diabolique":
+            if selected == "diabolique":
                 color_facile, color_moyen, color_difficile, color_diabolique = blanc, blanc, blanc, rouge_clair
 
         if SUDOKU:
@@ -586,19 +576,20 @@ if __name__ == '__main__':
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-                #bouton retour
+                # bouton retour
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         pos = pygame.mouse.get_pos()
-                        if pos[0] > taille_ecran_sudoku[0] - 100*0.66 and pos[1] > taille_ecran_sudoku[1] - 30*0.66:
+                        if pos[0] > taille_ecran_sudoku[0] - 100 * 0.66 and pos[1] > taille_ecran_sudoku[1] - 30 * 0.66:
                             SUDOKU = False
                             MENU_DIFFICULTE = True
                             MENU = False
                             MENU_MODE = False
                             MENU_IMPORTER = False
                             selected = "facile"
-                        #bouton resoudre
-                        elif pos[0] > taille_ecran_sudoku[0] - 210 * 0.66 and pos[1] > taille_ecran_sudoku[1] - 30 * 0.66:
+                        # bouton resoudre
+                        if pos[0] > taille_ecran_sudoku[0] - 210 * 0.66 and pos[1] > taille_ecran_sudoku[
+                            1] - 30 * 0.66:
                             solve(grid)
                             sudoku = Sudoku(taille_ecran_sudoku, grid)
                             pygame.display.flip()
@@ -642,12 +633,12 @@ if __name__ == '__main__':
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0]]
                         # bouton resoudre
-                        elif pos[0] > taille_ecran_sudoku[0] - 225 * 0.66 and pos[1] > taille_ecran_sudoku[
+                        if pos[0] > taille_ecran_sudoku[0] - 225 * 0.66 and pos[1] > taille_ecran_sudoku[
                             1] - 30 * 0.66:
                             solve(grid)
                             sudokuimporter = SudokuImporter(taille_ecran_sudoku, grid, nombrevie)
                         # bouton importer
-                        elif pos[0] > taille_ecran_sudoku[0] - 350 * 0.66 and pos[1] > taille_ecran_sudoku[
+                        if pos[0] > taille_ecran_sudoku[0] - 350 * 0.66 and pos[1] > taille_ecran_sudoku[
                             1] - 30 * 0.66:
                             read()
                             sudokuimporter = SudokuImporter(taille_ecran_sudoku, grid, nombrevie)
@@ -694,107 +685,101 @@ if __name__ == '__main__':
                         value = 1
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_2:
                         value = 2
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_3:
                         value = 3
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_4:
                         value = 4
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_5:
                         value = 5
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_6:
                         value = 6
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_7:
                         value = 7
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_8:
                         value = 8
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] !=0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                     if event.key == pygame.K_9:
                         value = 9
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
-                            valide=True
-                        elif grid[var2][var1] != 0:
-                            valide=False
+                            valide = True
+                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
+                            valide = False
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_1:
                         value = 1
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_2:
                         value = 2
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_3:
                         value = 3
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_4:
                         value = 4
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_5:
                         value = 5
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_6:
                         value = 6
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_7:
                         value = 7
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_8:
                         value = 8
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_9:
                         value = 9
-                        if valide == False:
+                        if not valide:
                             nombrevie -= 1
 
-
-
-
-
-
                 sudokuimporter = SudokuImporter(taille_ecran_sudoku, grid, nombrevie)
-
