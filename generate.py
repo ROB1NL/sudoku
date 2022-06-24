@@ -253,39 +253,39 @@ i = 0
 #         delete = False
 #     sudoku = Sudoku(taille_ecran_sudoku, grid)
 #     pygame.display.flip()  # Actualise lecran
-
-for j in range(1):
-    c = 0
-    grid = getnewgrid()
-    positions = []
-    for i in range(9):
-        for j in range(9):
-            positions.append((i, j))
-    # creat a generator giving the elements of the list "positions"
-    random.shuffle(positions)
-    positions = itertools.cycle(positions)
-    # shuffle the list of positions
-    pos = next(positions)
-    grid = remove_number(grid, pos)
-    while c < 60:
-        pos = next(positions)
-        grid2 = grid.copy()
-        grid2 = remove_number(grid2, pos)
-        if uniquegrid(grid2):
-            grid = remove_number(grid, pos)
-            c += 1
-            print(c)
-            save_grid(grid)
-            print(grid)
-            # print('\n\n[',end='')
-            # for i in grid[:-1]:
-            #     print('[', end='')
-            #     for j in i[:-1]:
-            #         print(j, end=', ')
-            #     print(i[-1], end='],')
-            # print('[', end='')
-            # for j in grid[-1]:
-            #     print(j, end=', ')
-            # print(i[-1], end=']')
-            # print(']', end='')
-    print('num0', count_zero(grid))
+#
+# for j in range(1):
+#     c = 0
+#     grid = getnewgrid()
+#     positions = []
+#     for i in range(9):
+#         for j in range(9):
+#             positions.append((i, j))
+#     # creat a generator giving the elements of the list "positions"
+#     random.shuffle(positions)
+#     positions = itertools.cycle(positions)
+#     # shuffle the list of positions
+#     pos = next(positions)
+#     grid = remove_number(grid, pos)
+#     while c < 60:
+#         pos = next(positions)
+#         grid2 = grid.copy()
+#         grid2 = remove_number(grid2, pos)
+#         if uniquegrid(grid2):
+#             grid = remove_number(grid, pos)
+#             c += 1
+#             print(c)
+#             save_grid(grid)
+#             print(grid)
+#             # print('\n\n[',end='')
+#             # for i in grid[:-1]:
+#             #     print('[', end='')
+#             #     for j in i[:-1]:
+#             #         print(j, end=', ')
+#             #     print(i[-1], end='],')
+#             # print('[', end='')
+#             # for j in grid[-1]:
+#             #     print(j, end=', ')
+#             # print(i[-1], end=']')
+#             # print(']', end='')
+#     print('num0', count_zero(grid))

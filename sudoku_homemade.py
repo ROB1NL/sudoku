@@ -686,99 +686,109 @@ if __name__ == '__main__':
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_2:
                         value = 2
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_3:
                         value = 3
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_4:
                         value = 4
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_5:
                         value = 5
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_6:
                         value = 6
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_7:
                         value = 7
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_8:
                         value = 8
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                     if event.key == pygame.K_9:
                         value = 9
                         if isValid(grid, value, (var2, var1)):
                             grid[var2][var1] = value
                             valide = True
-                        if grid[var2][var1] != 0 and not isValid(grid, value, (var2, var1)):
-                            valide = False
+
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_1:
                         value = 1
+                        print(var2, var1, isValid(grid, value, (var2, var1)))
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_2:
                         value = 2
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_3:
                         value = 3
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_4:
                         value = 4
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_5:
                         value = 5
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_6:
                         value = 6
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_7:
                         value = 7
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_8:
                         value = 8
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
                     if event.key == pygame.K_9:
                         value = 9
+                        if (grid[var2][var1] != 0) and (not isValid(grid, value, (var2, var1))):
+                            valide = False
                         if not valide:
                             nombrevie -= 1
 
